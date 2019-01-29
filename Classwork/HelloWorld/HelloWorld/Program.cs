@@ -64,46 +64,141 @@ namespace HelloWorld
         {
             string literall = "Hello \"Ashu\""; // \t is tab, \" shows \\ in console
             string path = "C:\\Windows\\System32";// those \\ are just one when console
+            path += "\\Temp";
             string path2 = @"C:\Windows\System32"; //verbatim string is an escape sequence
 
+            // 1.String concat
             Console.WriteLine("Name: " + name);
-            Console.WriteLine("Price: " + price);
+
+            // 2. String Format
+            String str = String.Format("Price: {0:C}", price); //this is the long way. there are two ways. this :C format the string to currency. means format the two digits automatically
+            Console.WriteLine(str);
+
+            //Console.WriteLine("Price: " + price); this line and "String str = String.Format("Price: {0}", price);" are same
+
+            // 3. Function overload - just calls String.Format
             Console.WriteLine("Publisher: " + publisher);
-            Console.WriteLine("Owned? " + owned);
-            Console.WriteLine("Completed? " + completed);
+
+            // 4. Concatenation
+            str = String.Concat("Owned? ", " ", owned);
+            Console.WriteLine(str);
+            //Console.WriteLine("Owned? " + owned);
+
+            // 5. Interpolation - (this adds two formulas together)
+            //Console.WriteLine("Completed? " + completed);   - step 1         
+            //Console.WriteLine("Completed? {0}", completed); - step 2
+            Console.WriteLine($"Completed? {completed}"); // - step 3 - any expression can go here within limits
+
+            // Convert to a string
+            string strPrice = price.ToString("C"); // any expression can convert to string like this ".ToString()"
+                                                   //string strLiteral = "Hello".ToString(); - you can do this too, but it doest need. LOL
+                                                   //ReadBoolean("Hello").ToString - anything can be converted to strings
+                                                   //10.ToString(); - "10"
+
+            //Is string empty
+            string input = ""; // initialize to an emoty string
+            string input2 = null; // null is not an empty string. means there are no value
+            // if your function assigns to null your program will crash. .length, .ToString like functions cannot be null
+            int length = input.Length; // length is int. this is funtion but no
+            bool isEmpty;
+
+            // 1.
+            //if (input != null)
+            //    isEmpty = input.Length == 0;
+            //else
+            //    isEmpty = true;
+
+            // 2.
+            isEmpty = (input != null) ? input.Length == 0 : true; //? asks if the boolean is true or not - conditional operator
+
+            isEmpty = input.Length == 0;
+
+            // 3.
+            isEmpty = input == "";
+
+            // 4.
+            isEmpty = input == String.Empty; // is an example of a constant
+            //these 3 do the same thing
+
+            // 5.
+            isEmpty = String.IsNullOrEmpty(input); //same thing but easier because computer do it for you
+
+            //Comparison
+            bool areEqual = "Hello" == "hello"; // this is false because it is case sensitive
+            areEqual = String.Compare("Hello", "hello", true) == 0;
+
+            //Conversion
+            input = input.ToLower();
+            input2 = input2.ToUpper();
+
+            //Manipulation function
+            bool startsWith = input.StartsWith("http:");
+            bool endsWith = input.EndsWith("/");
+            //these are important at parsing
+
+            input = input.TrimStart();
+            input = input.TrimEnd(); 
+            input = input.Trim();
+
+            // good for buiding out tables 
+            input = input.PadLeft(10);
+            input = input.PadRight(10, '-'); //- you can use for devide title and values in a table. this draw a dash line between them 
         }
 
         private static bool ReadBoolean(string message)
         {
-            Console.WriteLine(message);
-            string result = Console.ReadLine();
+            do
+            {
+                Console.WriteLine(message);
+                string result = Console.ReadLine().ToUpper(); //convert to upper.
 
-            //validate it is a boolean
-            //TODO: Fix this expression 
-            //these shows in task list as TODO
-            if (result == "Y")
-                return true;
-            if (result == "y")
-                return true;
-            if (result == "N")
-                return false;
-            if (result == "n")
-                return false;
+                //Validate it is a boolean
+                //HACK: Fix this expression
+                if (result == "Y")
+                    return true;
+                if (result == "N")
+                    return false;
+
+                //switch (result) - this is same as if statement
+                //{
+                //    case "Y":  
+                //    case "y": return true; 
+
+                //    case "N": 
+                //    case "n": return false; 
+
+                //    default: Console.WriteLine("Enter Y or N"); break; //this is not special. so, it must have break;
+                //};
+
+                //if (result == "Y" || result == "y") - you can write thses to lines together like in this line
+                //if (result == "y")
+                //    return true;
+                //if (result == "n")
+                //    return false;
+
+
+                Console.WriteLine("Enter Y or N");
+            } while (true);
 
             //TODO: Add validation 
-            return false; 
+            //return false; 
         }
 
         private static decimal ReadDecimal( string message )
         {
-            Console.WriteLine(message);
-            string value = Console.ReadLine();
+            while (true)
+            {
+                Console.WriteLine(message);
+                string value = Console.ReadLine();
 
-            decimal result;
-            if (Decimal.TryParse(value, out result)) //this will not use in this class again
-                return result;
+                //decimal result;
+                ///if (Decimal.TryParse(value, out result))            
+                if (Decimal.TryParse(value, out decimal result))
+                    return result;
 
-            return 0;
+                Console.WriteLine("Enter a valid decimal value: ");
+            }; //c# does not care. but sometimes may or may not work while loop if you don't add ;
+            
         }
 
         private static string name; //global variables
@@ -167,8 +262,7 @@ namespace HelloWorld
  * string (unlimited)
  */
 
-/*
- * January 23, 2019
+/* January 23, 2019
  * Video game; we need 
  * name-string, publisher-string, completed-bool, price-decimal, owned-bool
  * 
@@ -181,4 +275,23 @@ namespace HelloWorld
  * 
  * strings are immutable means cannot be changed. cannot modify exsisting strings
  * 
+ */
+
+/* January 28, 2019
+ * once a string value is determined you cannot change it. 
+ * String concatination
+ * {0:C} format specifier; this one formats as currency. C is currency
+ * All functions are camel case
+ * length - int
+ * IsNullOrEmpty - bool
+ * Compare(strr,str,bool) - int
+ * ToUpper/ToLower
+ * StratsWith/EndWith
+ * Trim
+ * PadLeft/PadRight
+ * While, do-while and switch
+ * Type inference - var means compiler you go and figure out that(line 76) - var path2 = @"C:\Windows\System32"; - string was there instead of var.
+ * compiler will figure out that was a string automatically. so, we can add var instead of string. this does not change the type
+ * var i = 10; - since 10 is an int i is an int. var help you LOL.because it lets compiler to figure out what is the type. you can use var 
+ * anywhere. you cannot declare var without initializing. 
  */
