@@ -96,10 +96,10 @@ namespace HelloWorld
                                                    //10.ToString(); - "10"
 
             //Is string empty
-            string input = ""; // initialize to an emoty string
+            string input = " "; // initialize to an emoty string
             string input2 = null; // null is not an empty string. means there are no value
             // if your function assigns to null your program will crash. .length, .ToString like functions cannot be null
-            int length = input.Length; // length is int. this is funtion but no
+            //int length = input.Length; // length is int. this is funtion but no
             bool isEmpty;
 
             // 1.
@@ -201,6 +201,34 @@ namespace HelloWorld
             
         }
 
+        private static void PlayWithArrays()
+        {
+            int size = 100;
+
+            int[] prices = new int[size]; //arrays are always open in c#. (int[] prices; -This is declaration)
+            for(var index = 0; index < prices.Length; ++index) //index must be positive. if its negative it will crash
+            {
+                prices[index] = index + 1;
+            }; //like in while loop. you can either add ; or not ;
+
+            DisplayArray(prices);
+
+            var input = "field1,field2,field3;field4,,field5";
+            var field = input.Split(',', ';'); //returns a spring array. never returns a null array. if the array is empty it will returns the original string.
+        }
+
+        private static void DisplayArray( int[] values/*, int count*/ )
+        {
+            //for (var index = 0; index < values.Length; ++index)
+            foreach (var item in values) //you can use foreach other than for loop. you can use for each for every time for for loop except; 1. when you are in a foreach inside because you cannot change the size of the foreach
+                // 2. Items is read only, you cannot change the element
+
+            {
+                //Console.WriteLine(values[index]);
+                Console.WriteLine(item);
+            };
+        }
+
         private static string name; //global variables
         private static string publisher;
         private static decimal price;
@@ -294,4 +322,33 @@ namespace HelloWorld
  * compiler will figure out that was a string automatically. so, we can add var instead of string. this does not change the type
  * var i = 10; - since 10 is an int i is an int. var help you LOL.because it lets compiler to figure out what is the type. you can use var 
  * anywhere. you cannot declare var without initializing. 
+ */
+
+/* January 30, 2019; Arrays
+ * Error message-
+ *  void Display(String message){
+ *      if(String.IsNullEmpty(message))
+ *          message = " ";
+ *          Console.WriteLine(message);
+ *      }
+ * Arrays
+ * int[] prices; //declaring an array
+ * An open array = undefine or unspecifies. when you pass you can pass any size of an array
+ * arrays can be null like strings
+ * for loops-
+ *  for(var index = 0; index < size; ++ index){} //(initializing expression; condition(boolean);update)
+ * array.Length - int
+ * size is any exper 
+ * size can be 0
+ * foreach(var item in array){} - array cannot change and item is read only(foreach cannot modify the item
+ * str.Split(char[]) - Split function returns a string array without the things you said to remove
+ * 
+ * CLR - commona Language Runtime - is runtime for .NET. My program talks to CLR and then CLR talks to the OS. 
+ * .NET framwork mainly do with windows
+ * levels -
+ *  -winForms, WPF, UWP, ASP.NET // top level. this level is top pf the languages. 
+ *  -c#, VB, F# and other languages
+ *  -.NET Framework
+ *  -CLR
+ *  -OS - Windows, Linuz, Android, iOS
  */
