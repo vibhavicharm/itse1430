@@ -25,6 +25,27 @@ namespace GameManager.Host.Winforms
             game.Name = "DOOM";
             game.Price = 59.99M; // you cannot convert double or float to a decimal. Use capital "M" at the end. M stands for money
 
+            //Validate(game);
+            game.Validate(); //go to game class and then go to validate method and checks if the game is valid or not
+
+            //var x = 10;
+            //x.ToString();
+
+            //Decimal.TryParse("45.99", out game.Price); // we do not nead to declare because we already done it when we make the game class
+
+        }
+
+        private void OnFileExit( object sender, EventArgs e )
+        {
+            // Local variable
+            var x = 10;
+
+            Close();
+        }
+
+        private void OnHelpAbout( object sender, EventArgs e )
+        {
+            MessageBox.Show("Help");
         }
     }
 }
@@ -33,5 +54,12 @@ namespace GameManager.Host.Winforms
  * new means initiating new instance and an object
  * clases are allow us to hide everything else
  * instance.member - "." is member operator or field operator. member of same type of instance
+ */
+
+/* February 6, 2019
+ * field 
+ * functiona names always are verbs - pascal casing
+ * for methods also pascal caseing
+ * 
  * 
  */
