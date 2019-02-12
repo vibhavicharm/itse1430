@@ -10,17 +10,75 @@ namespace GameManager
     public class Game
     {
         /// <summary> Name of the game </summary>
-        public string Name = "";
+        public string Name {
+            get { return _name ?? ""; } // keywords inside the property declaration. must return the value you get. (read)
+            set { _name = value; } // write
+        }
+        // name guranteed never to be null
 
-        public string Publlisher = ""; 
-        public decimal Price;
+        private string _name = ""; // standard convention for fields(underscore and camalcase)
+
+
+
+        public string Publlisher {
+            get { return _publisher ?? ""; } // they would not return null
+            set { _publisher = value; }
+        }
+
+
+        // Calculated property
+        public bool IsCoolGame {
+            get { return _publisher != "EA"; } // properties can be calulated properties
+        }
+
+        private string _publisher = ""; // properties do not have data
+
+        public decimal Price
+        {
+            get { return _price; }
+            set { _price = value; }
+        }
+
+        private decimal _price;
+
         public bool Owned;
         public bool Completed;
 
-        // public string[] genres = new string [10] - you can do this as welas an array
+        // Mixed accessibility
+        public double Rate
+        {
+            get;
+            internal set;
+        }
 
-            /// <summary>Validates the object</summary>
-            /// <returns></returns>
+        public void Foo()
+        {
+            //NOT DETERMINISTIC - should have been a method
+            var now = DateTime.Now; // time is always changing. 
+        }
+        //*** if theere is a side effect in property it should be a method - system caching (method calls cache the value)
+
+
+        //Can init the data as well
+        // Don't use array properties because they require cloning and are inefficient
+        //public string[] Genres { get; set; } 
+        public string[] Genres
+        {
+            get
+            {
+                var temp = new string[_genres.Length];
+                Array.Copy(_genres, temp, _genres.Length);
+                return temp;
+            }
+        }
+        private string[] _genres;
+
+
+        //public string[] genres = new string[10]; - you can do this as well as an array
+        //private decimal realPrice = Price;
+
+        /// <summary>Validates the object</summary>
+        /// <returns></returns>
         public bool Validate(/* Game this */) // always comes this. this is always there. "this" word passes the instance
         {
             //Redundant dude
@@ -59,8 +117,17 @@ namespace GameManager
  *  public types and public members are reuired to comments in the labs use <summery> tabs - type /// then studio automatically adds these
  */
 
-/* February 6, 2019
+/* February 6, 2019, February 11, 2019 - Fields, Methods and Properties
  * initializers cannot (reference)be defined by any member of this type - "private decimal realPrice = Price" is wrong. you cannot do it. and language doeds not allowed it
+ * Properties:
+ * uses the syntax of filed this is properties
+ * process.GetProcess() helps to process
+ * properties are called repeatedly, they are fastest fields
+ * properties are design for look an d behave like fields
+ * Coalesce(expression, expression, expression) - takes two expressions and its evaluate the left expression. and first one is not empty.
+ * Auto property
+   public decimal Price { get; set; } //the auto property the syntax is not needed
+ * 
  * 
  * 
  */
