@@ -41,6 +41,8 @@ namespace GameManager.Host.Winforms
 
             //Decimal.TryParse("45.99", out game.Price); // we do not nead to declare because we already done it when we make the game class
 
+
+            _miGameAdd.Click += OnGameAdd; //(same thing) _miGameAdd.Click += new EventHandler(OnGameAdd);
         }
 
         private void OnFileExit( object sender, EventArgs e )
@@ -53,15 +55,64 @@ namespace GameManager.Host.Winforms
 
         private void OnHelpAbout( object sender, EventArgs e )
         {
-            MessageBox.Show("Help");
+            var form = new AboutBox1();
+            form.ShowDialog();
         }
 
         private void OnGameAdd(object sender, EventArgs e)
         {
             //Display UI
+            var form = new GameForm();
+
+            // Modeless Dialoge
+            //form.Show(); 
+            
+            // Modal dialog
+            if (form.ShowDialog(this) != DialogResult.OK) // "this" represents the current instance
+                return;
 
             //If OK then "add" to system
+            _game = form.Game;
         }
+                
+
+        private void OnGameEdit( object sender, EventArgs e )
+        {                       
+            var form = new GameForm();
+
+            // Game to edit
+            form.Game = _game;
+
+            if (form.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            _game = form.Game;
+        }
+
+
+        private void OnGameDelete( object sender, EventArgs e )
+        {
+            // Get selected game, if any
+            var selected = GetSelectedGame();
+            if (selected == null)
+                return;
+
+            // Dispaly confirmation
+            if(MessageBox.Show($"Are you sure you want to delete {selected.Name}?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes);
+            return;
+
+            //TODO: Delete
+            _game = null;
+        }
+
+        private Game GetSelectedGame()
+        {
+            return _game;
+        }
+
+
+
+        private Game _game;
     }
 }
 
@@ -76,5 +127,10 @@ namespace GameManager.Host.Winforms
  * functiona names always are verbs - pascal casing
  * for methods also pascal caseing
  * fields always private - if there is public fields in Lab you will loose points
+ */
+
+/* February 13, 2019
+ * Show Dialog is modal dailog. Until you cancel the child dialog you cannot go back to parent dialog.
+ * Modeless windows are viseversa of modal dialog. You can do what ever you want to parent dialog when the child dialoge is open.
  * 
  */

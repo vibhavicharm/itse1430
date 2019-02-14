@@ -31,11 +31,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this._txtName = new System.Windows.Forms.TextBox();
+            this._txtPublisher = new System.Windows.Forms.TextBox();
+            this._txtPrice = new System.Windows.Forms.TextBox();
+            this._cbOwned = new System.Windows.Forms.CheckBox();
+            this._cbCompleted = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -67,46 +67,47 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "&Price";
             // 
-            // textBox1
+            // _txtName
             // 
-            this.textBox1.Location = new System.Drawing.Point(85, 21);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 5;
+            this._txtName.Location = new System.Drawing.Point(85, 21);
+            this._txtName.Name = "_txtName";
+            this._txtName.Size = new System.Drawing.Size(100, 20);
+            this._txtName.TabIndex = 5;
             // 
-            // textBox2
+            // _txtPublisher
             // 
-            this.textBox2.Location = new System.Drawing.Point(85, 76);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 6;
+            this._txtPublisher.Location = new System.Drawing.Point(85, 76);
+            this._txtPublisher.Name = "_txtPublisher";
+            this._txtPublisher.Size = new System.Drawing.Size(100, 20);
+            this._txtPublisher.TabIndex = 6;
+            this._txtPublisher.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
-            // textBox3
+            // _txtPrice
             // 
-            this.textBox3.Location = new System.Drawing.Point(85, 129);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 7;
+            this._txtPrice.Location = new System.Drawing.Point(85, 129);
+            this._txtPrice.Name = "_txtPrice";
+            this._txtPrice.Size = new System.Drawing.Size(100, 20);
+            this._txtPrice.TabIndex = 7;
             // 
-            // checkBox1
+            // _cbOwned
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(85, 181);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(66, 17);
-            this.checkBox1.TabIndex = 8;
-            this.checkBox1.Text = "Owned?";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this._cbOwned.AutoSize = true;
+            this._cbOwned.Location = new System.Drawing.Point(85, 181);
+            this._cbOwned.Name = "_cbOwned";
+            this._cbOwned.Size = new System.Drawing.Size(66, 17);
+            this._cbOwned.TabIndex = 8;
+            this._cbOwned.Text = "Owned?";
+            this._cbOwned.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // _cbCompleted
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(85, 221);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(82, 17);
-            this.checkBox2.TabIndex = 9;
-            this.checkBox2.Text = "Completed?";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this._cbCompleted.AutoSize = true;
+            this._cbCompleted.Location = new System.Drawing.Point(85, 221);
+            this._cbCompleted.Name = "_cbCompleted";
+            this._cbCompleted.Size = new System.Drawing.Size(82, 17);
+            this._cbCompleted.TabIndex = 9;
+            this._cbCompleted.Text = "Completed?";
+            this._cbCompleted.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -116,6 +117,7 @@
             this.button1.TabIndex = 10;
             this.button1.Text = "&Save";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.OnSave);
             // 
             // button2
             // 
@@ -125,19 +127,20 @@
             this.button2.TabIndex = 11;
             this.button2.Text = "&Cancel";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.OnCancel);
             // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(246, 310);
+            this.ClientSize = new System.Drawing.Size(226, 304);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this._cbCompleted);
+            this.Controls.Add(this._cbOwned);
+            this.Controls.Add(this._txtPrice);
+            this.Controls.Add(this._txtPublisher);
+            this.Controls.Add(this._txtName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -148,6 +151,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Game Details";
+            this.Load += new System.EventHandler(this.GameForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,11 +162,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.TextBox _txtName;
+        private System.Windows.Forms.TextBox _txtPublisher;
+        private System.Windows.Forms.TextBox _txtPrice;
+        private System.Windows.Forms.CheckBox _cbOwned;
+        private System.Windows.Forms.CheckBox _cbCompleted;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
     }

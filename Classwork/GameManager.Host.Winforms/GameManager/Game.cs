@@ -127,7 +127,13 @@ namespace GameManager
  * Coalesce(expression, expression, expression) - takes two expressions and its evaluate the left expression. and first one is not empty.
  * Auto property
    public decimal Price { get; set; } //the auto property the syntax is not needed
- * 
- * 
- * 
+ */
+
+/* February 13, 2019
+ * Polling is you waiting and refresh again and again. Events handles the polling.
+ * Polling - You are awaiting for something to happen. 
+ * Event has two questions. what and who
+ * Events-
+ *   what : control
+ *   who : method
  */
