@@ -229,6 +229,7 @@ namespace GameManager.Host.Winforms
  * (object sender, EventArgs e) - definition of event handler; sender is the first parameter. second parameter always e.
  * CancelEventArgs() are the only event handlers that has both get and set properties
  * we always use void for these events
- * 
+ * Value types can never be null
+ * reference types can be null
  * 
  */
