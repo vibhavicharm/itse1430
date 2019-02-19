@@ -229,7 +229,9 @@ namespace GameManager.Host.Winforms
  * (object sender, EventArgs e) - definition of event handler; sender is the first parameter. second parameter always e.
  * CancelEventArgs() are the only event handlers that has both get and set properties
  * we always use void for these events
- * Value types can never be null
- * reference types can be null
- * 
+ *  pass by value and passe by reference;
+ *  pass by Value types can never be null
+ *  pass by reference types can be null
+ *  value types are immutable but reference types are mutable
+ *  if it is a struct it is a value type, if it is a class type it is a reference type - this is only for c#. 
  */
