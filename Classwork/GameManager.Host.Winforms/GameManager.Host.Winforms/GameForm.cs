@@ -76,5 +76,10 @@ namespace GameManager.Host.Winforms
             if (Game != null)// this is where you initialize the UI
                 LoadData(Game);
         }
+
+        private void _txtName_TextChanged( object sender, EventArgs e )
+        {
+
+        }
     }
 }

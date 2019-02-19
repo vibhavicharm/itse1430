@@ -73,6 +73,7 @@
             this._txtName.Name = "_txtName";
             this._txtName.Size = new System.Drawing.Size(100, 20);
             this._txtName.TabIndex = 5;
+            this._txtName.TextChanged += new System.EventHandler(this._txtName_TextChanged);
             // 
             // _txtPublisher
             // 
@@ -133,7 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(226, 304);
+            this.ClientSize = new System.Drawing.Size(239, 302);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this._cbCompleted);

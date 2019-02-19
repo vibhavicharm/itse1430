@@ -38,6 +38,7 @@
             this._miGameDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._listGames = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,6 +83,7 @@
             // _miGameAdd
             // 
             this._miGameAdd.Name = "_miGameAdd";
+            this._miGameAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
             this._miGameAdd.Size = new System.Drawing.Size(180, 22);
             this._miGameAdd.Text = "&Add";
             this._miGameAdd.Click += new System.EventHandler(this.OnGameAdd);
@@ -89,6 +91,7 @@
             // _miGameEdit
             // 
             this._miGameEdit.Name = "_miGameEdit";
+            this._miGameEdit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Insert)));
             this._miGameEdit.Size = new System.Drawing.Size(180, 22);
             this._miGameEdit.Text = "&Edit";
             this._miGameEdit.Click += new System.EventHandler(this.OnGameEdit);
@@ -96,11 +99,12 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(104, 6);
             // 
             // _miGameDelete
             // 
             this._miGameDelete.Name = "_miGameDelete";
+            this._miGameDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this._miGameDelete.Size = new System.Drawing.Size(180, 22);
             this._miGameDelete.Text = "&Delete";
             this._miGameDelete.Click += new System.EventHandler(this.OnGameDelete);
@@ -120,11 +124,23 @@
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.OnHelpAbout);
             // 
+            // _listGames
+            // 
+            this._listGames.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._listGames.FormattingEnabled = true;
+            this._listGames.Location = new System.Drawing.Point(0, 24);
+            this._listGames.Name = "_listGames";
+            this._listGames.Size = new System.Drawing.Size(798, 427);
+            this._listGames.TabIndex = 1;
+            this._listGames.SelectedIndexChanged += new System.EventHandler(this.OnGameSelected);
+            this._listGames.DoubleClick += new System.EventHandler(this.OnGameEdit);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(798, 451);
+            this.Controls.Add(this._listGames);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -148,6 +164,7 @@
         private System.Windows.Forms.ToolStripMenuItem _miGameDelete;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ListBox _listGames;
     }
 }
 
