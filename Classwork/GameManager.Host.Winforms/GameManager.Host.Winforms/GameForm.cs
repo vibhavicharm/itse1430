@@ -12,7 +12,7 @@ namespace GameManager.Host.Winforms
 {
     public partial class GameForm : Form
     {
-        public GameForm()
+        public GameForm() //: base() //when this calles it goes to base constructor
         {
             InitializeComponent();
         }
@@ -62,7 +62,17 @@ namespace GameManager.Host.Winforms
             game.Owned = _cbOwned.Checked; //check boxes have a checked property. it is a boolian
             game.Completed = _cbCompleted.Checked;
 
+            //Demoing ctor
+            var game2 = new Game(_txtName.Text, ReadDecimal(_txtPrice));
+
             return game;
+        }
+
+        //Defined in type
+        //Derived types may override and change it
+        protected virtual void CanBeChanged()
+        {
+
         }
 
         private void textBox2_TextChanged( object sender, EventArgs e )
@@ -70,13 +80,18 @@ namespace GameManager.Host.Winforms
 
         }
 
-        private void GameForm_Load( object sender, EventArgs e )
+        protected override void OnLoad( EventArgs e )
         {
-            // Unit UI if editing a game
-            if (Game != null)// this is where you initialize the UI
+            //this.OnLoad(e);
+            base.OnLoad(e);
+            
+            //Init UI if editing a game
+            if (Game != null)
                 LoadData(Game);
         }
 
+
+       
         private void _txtName_TextChanged( object sender, EventArgs e )
         {
 

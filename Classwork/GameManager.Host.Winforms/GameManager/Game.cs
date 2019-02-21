@@ -9,6 +9,28 @@ namespace GameManager
     /// <summary> Represents a game </summary>
     public class Game
     {
+        //Default, no return type 
+        //Default constaructor has no parameters
+        public Game()
+        {
+            //Complex init
+            var x = 1 + 2;
+
+        }
+
+        //Constructor chaining
+        public Game(string name ) : this(name, 0) // : is a seperator in here. constructor with two parameters. so it calles the other constructor with two parameters. so then that constructor executes
+        {
+            //Name = name;
+        }
+
+        //As soon as you define a constructor, no defaulat ctor anymore
+        public Game(string name, decimal price )
+        {
+            Name = name;
+            Price = price;
+        }
+
         /// <summary> Name of the game </summary>
         public string Name {
             get { return _name ?? ""; } // keywords inside the property declaration. must return the value you get. (read)

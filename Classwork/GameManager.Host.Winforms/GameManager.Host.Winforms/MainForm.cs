@@ -29,6 +29,17 @@ namespace GameManager.Host.Winforms
 
             if (name.Length == 0) 
                 /* is empty */;
+
+            //Checking for null - long way
+            if (game.Name != null && game.Name.Length == 0)
+                ;
+            //Short way - null conditional 
+            // game.Name.Length -> int
+            // game.Name/.Length -> int? //if ((game.Name?.Length ?? 0) == 0)
+            if (game.Name?.Length == 0) // null is not 0
+            ;
+            //these are work for any member
+
             if (game.Name.Length == 0) // properties behave just like fileds
                 /* is empty */
                 ;
@@ -234,4 +245,46 @@ namespace GameManager.Host.Winforms
  *  pass by reference types can be null
  *  value types are immutable but reference types are mutable
  *  if it is a struct it is a value type, if it is a class type it is a reference type - this is only for c#. 
+ */
+
+/* February 20, 2019 - continued value and reference & Inheritance and Constructors 
+ * How handle click event on btncancel?
+ *  btnCancel.click += Oncancel;
+ * What is event handler?
+ *  void eventHandler (object sender, Event e)
+ * Determine if value is Form? (3 ways)
+ *  value as form, if not return null
+ *  value is form; return a bool (normally we do as or is operators
+ *  (Form)value //Standard type cast
+ * 
+ * Value Types;
+ *  in C# it is struct
+ *  primitives
+ *  copy value
+ *  value semantics
+ *  cannot be null
+ *  should be immutable
+ *  pass by value
+ *  
+ * Reference Type;
+ *  in c# it is class
+ *  string
+ *  copy reference
+ *  reference semantics
+ *  can be null
+ *  does not matter exactly. they are mutable. but you can make a class imutable 
+ *  pass by value. copy reference
+ *  
+ * Inheritance
+ * in c# if you are overriding you must use the override word in the method. Otherwise its a compiler error. 
+ *  eg.- protected override void onload(EventArgs e){}
+ * Constructors can do everything what methods do. only thing they do not return anything
+ * Constructors do with restrictions
+ *  1. Cannot be called by directly
+ *  2. Errors are very bad
+ *  3. Should behave no different than doing it manually
+ * constructors can never be vertual. they are never inheritance
+ * base is the parent
+ * you either call your constructor or base contructor. you cannot call both at once
+ * 
  */
