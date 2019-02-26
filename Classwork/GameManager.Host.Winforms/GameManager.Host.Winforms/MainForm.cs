@@ -82,8 +82,6 @@ namespace GameManager.Host.Winforms
             {
                 if(game != null)
                 _listGames.Items.Add(game);
-
-               
             };
         }
 
@@ -204,6 +202,16 @@ namespace GameManager.Host.Winforms
         {
 
         }
+        
+        protected override void OnFormClosing( FormClosingEventArgs e )
+        {
+            if (MessageBox.Show(this, "Are you sure?", "Close", MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                e.Cancel = true;
+                return;
+            };
+            base.OnFormClosing(e);
+        }
     }
 }
 
@@ -286,5 +294,37 @@ namespace GameManager.Host.Winforms
  * constructors can never be vertual. they are never inheritance
  * base is the parent
  * you either call your constructor or base contructor. you cannot call both at once
+ * 
+ */
+
+/* Review - Quiz 1
+ * Stages; 
+ *  App // when your project compiles each project convers to .DLO or .EXE. this is assembly.
+ *  C#
+ *  .NET
+ *  CLR - runtime post for .NET
+ *  OS
+ * 
+ * foreach loop; string[] names;
+ *  foreach(var name in names){C.wL(name);}
+ * 
+ * is and as operators
+ *  we have object obj;
+ *  obj is (type T)Form returns a bool (true or false) 
+ *  obj as (type T)Form return the form if there is not any thing return null 
+ *
+ * Constructor channing is the only time constructor calling another constructor. we need "this" keyword for that.
+ */
+
+/* February 25, 2019 - object
+ * Object is a type that everything inherites on
+ * all 4 are defined by the base type;
+ *  ToString() - take the instance and converts into string
+ *  Equals(object) - bool
+ *  GetType() - type // what kind of object is. this cannot be override
+ *  GetHashCode() - int
+ *  
+ * winForms
+ *  
  * 
  */

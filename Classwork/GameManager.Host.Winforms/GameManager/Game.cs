@@ -80,6 +80,10 @@ namespace GameManager
         }
         //*** if theere is a side effect in property it should be a method - system caching (method calls cache the value)
 
+        public override string ToString()
+        {
+            return Name;
+        }
 
         //Can init the data as well
         // Don't use array properties because they require cloning and are inefficient
@@ -122,6 +126,7 @@ namespace GameManager
 
             return true;
         }
+
     }
 }
 
