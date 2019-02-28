@@ -21,7 +21,20 @@ namespace GameManager.Host.Winforms
 
         private void OnSave( object sender, EventArgs e )
         {
-            Game = SaveData();
+            var game = SaveData();
+
+            // validate children
+            if (!ValidateChildren())
+                return;
+
+            //Validate at business level
+            if (!game.Validate())
+            {
+                MessageBox.Show("Game not valid.", "Error", MessageBoxButtons.OK);
+                return;
+            }
+
+            Game = game;
             DialogResult = DialogResult.OK; // DialogResult is an enum. syntax for enum is "enum = enum.type"
 
             Close();
@@ -37,6 +50,10 @@ namespace GameManager.Host.Winforms
 
         private decimal ReadDecimal(TextBox control )
         {
+            if(control.Text.Length == 0)
+            {
+                return 0;
+            }
             if (Decimal.TryParse(control.Text, out var value))
                 return value;
 
@@ -46,7 +63,7 @@ namespace GameManager.Host.Winforms
         private void LoadData(Game game )
         {
             _txtName.Text = game.Name;
-            _txtPublisher.Text = game.Publlisher;
+            _txtPublisher.Text = game.Discription;
             _txtPrice.Text = game.Price.ToString();
             _cbOwned.Checked = game.Owned;
             _cbCompleted.Checked = game.Completed;
@@ -57,7 +74,7 @@ namespace GameManager.Host.Winforms
         {
             var game = new Game();
             game.Name = _txtName.Text;
-            game.Publlisher = _txtPrice.Text;
+            game.Discription = _txtPrice.Text;
             game.Price = ReadDecimal(_txtPrice);
             game.Owned = _cbOwned.Checked; //check boxes have a checked property. it is a boolian
             game.Completed = _cbCompleted.Checked;
@@ -88,6 +105,8 @@ namespace GameManager.Host.Winforms
             //Init UI if editing a game
             if (Game != null)
                 LoadData(Game);
+
+            ValidateChildren();
         }
 
 
@@ -95,6 +114,35 @@ namespace GameManager.Host.Winforms
         private void _txtName_TextChanged( object sender, EventArgs e )
         {
 
+        }
+
+        private void OnValidateName( object sender, CancelEventArgs e )
+        {
+            var tb = sender as TextBox;
+
+            if (tb.Text.Length == 0)
+            {
+                _errors.SetError(tb, "Name is required.");
+                e.Cancel = true;
+                //MessageBox.Show("Name is required", "error", MessageBoxButtons.OK);
+            } else
+            {
+                _errors.SetError(tb, "");
+            }
+        }
+
+        private void OnValidaePrice( object sender, CancelEventArgs e )
+        {
+            var tb = sender as TextBox;
+            var price = ReadDecimal(tb);
+            if (price < 0)
+            {
+                _errors.SetError(tb, "Price must be >= 0.");
+                e.Cancel = true;
+            } else
+            {
+                _errors.SetError(tb, "");
+            }
         }
     }
 }

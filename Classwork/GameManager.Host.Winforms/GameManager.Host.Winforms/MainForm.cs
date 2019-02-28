@@ -316,7 +316,7 @@ namespace GameManager.Host.Winforms
  * Constructor channing is the only time constructor calling another constructor. we need "this" keyword for that.
  */
 
-/* February 25, 2019 - object
+/* February 25, 2019 - object 
  * Object is a type that everything inherites on
  * all 4 are defined by the base type;
  *  ToString() - take the instance and converts into string
@@ -325,6 +325,11 @@ namespace GameManager.Host.Winforms
  *  GetHashCode() - int
  *  
  * winForms
- *  
- * 
+ */
+
+/* February 27, 2019 - validation
+ * validation problems
+ *  Validating must have focus
+ *  Cannot lose focus = Enable allow focus change
+ * validate children method for validate all the children of the form 
  */

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -38,6 +39,8 @@
             this._cbCompleted = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this._errors = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this._errors)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -52,16 +55,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 50);
+            this.label2.Location = new System.Drawing.Point(19, 50);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
+            this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "&Publisher";
+            this.label2.Text = "&Description";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(48, 76);
+            this.label3.Location = new System.Drawing.Point(48, 96);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 2;
@@ -73,31 +76,37 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this._txtName.Location = new System.Drawing.Point(85, 21);
             this._txtName.Name = "_txtName";
-            this._txtName.Size = new System.Drawing.Size(244, 20);
+            this._txtName.Size = new System.Drawing.Size(260, 20);
             this._txtName.TabIndex = 0;
             this._txtName.TextChanged += new System.EventHandler(this._txtName_TextChanged);
+            this._txtName.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateName);
             // 
             // _txtPublisher
             // 
-            this._txtPublisher.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this._txtPublisher.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this._txtPublisher.Location = new System.Drawing.Point(85, 47);
+            this._txtPublisher.Multiline = true;
             this._txtPublisher.Name = "_txtPublisher";
-            this._txtPublisher.Size = new System.Drawing.Size(244, 20);
+            this._txtPublisher.Size = new System.Drawing.Size(260, 40);
             this._txtPublisher.TabIndex = 1;
             this._txtPublisher.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // _txtPrice
             // 
-            this._txtPrice.Location = new System.Drawing.Point(85, 73);
+            this._txtPrice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this._txtPrice.Location = new System.Drawing.Point(85, 93);
             this._txtPrice.Name = "_txtPrice";
             this._txtPrice.Size = new System.Drawing.Size(66, 20);
             this._txtPrice.TabIndex = 2;
+            this._txtPrice.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidaePrice);
             // 
             // _cbOwned
             // 
+            this._cbOwned.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._cbOwned.AutoSize = true;
-            this._cbOwned.Location = new System.Drawing.Point(85, 99);
+            this._cbOwned.Location = new System.Drawing.Point(85, 119);
             this._cbOwned.Name = "_cbOwned";
             this._cbOwned.Size = new System.Drawing.Size(66, 17);
             this._cbOwned.TabIndex = 3;
@@ -106,8 +115,9 @@
             // 
             // _cbCompleted
             // 
+            this._cbCompleted.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._cbCompleted.AutoSize = true;
-            this._cbCompleted.Location = new System.Drawing.Point(85, 122);
+            this._cbCompleted.Location = new System.Drawing.Point(85, 142);
             this._cbCompleted.Name = "_cbCompleted";
             this._cbCompleted.Size = new System.Drawing.Size(82, 17);
             this._cbCompleted.TabIndex = 4;
@@ -117,7 +127,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(173, 155);
+            this.button1.Location = new System.Drawing.Point(189, 179);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 5;
@@ -128,7 +138,8 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(254, 155);
+            this.button2.CausesValidation = false;
+            this.button2.Location = new System.Drawing.Point(270, 179);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 6;
@@ -136,11 +147,17 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.OnCancel);
             // 
+            // _errors
+            // 
+            this._errors.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this._errors.ContainerControl = this;
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(360, 196);
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.ClientSize = new System.Drawing.Size(376, 220);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this._cbCompleted);
@@ -152,7 +169,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(600, 255);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(376, 235);
             this.Name = "GameForm";
@@ -160,6 +176,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Game Details";
+            ((System.ComponentModel.ISupportInitialize)(this._errors)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,5 +194,6 @@
         private System.Windows.Forms.CheckBox _cbCompleted;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ErrorProvider _errors;
     }
 }

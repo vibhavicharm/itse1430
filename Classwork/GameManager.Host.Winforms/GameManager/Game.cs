@@ -42,7 +42,7 @@ namespace GameManager
 
 
 
-        public string Publlisher {
+        public string Discription {
             get { return _publisher ?? ""; } // they would not return null
             set { _publisher = value; }
         }
