@@ -85,22 +85,58 @@ namespace GameManager.Host.Winforms
             };
         }
 
-        private void OnGameAdd(object sender, EventArgs e)
+        private void OnGameAdd( object sender, EventArgs e )
         {
             //Display UI
             var form = new GameForm();
 
             // Modeless Dialoge
             //form.Show(); 
-            
-            // Modal dialog
-            if (form.ShowDialog(this) != DialogResult.OK) // "this" represents the current instance
-                return;
 
-            //If OK then "add" to system
-            _games[GetNextEmptyGame()] = form.Game;
-            BindList(); // call blinlist to refresh our gamelist
+            while (true)
+            {
+                // Modal dialog
+                if (form.ShowDialog(this) != DialogResult.OK) // "this" represents the current instance
+                    return;
+
+                //Add
+                try
+                {
+                    //Anything in here that raises an exception will
+                    //be sent to the catch block
+
+                    //_games[GetNextEmptyGame()] = form.Game;
+                   // _games.Add(form.Game);
+                } catch
+                {
+                    //Recover from errors
+                    MessageBox.Show(this, "Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                };
+            };
+
+            BindList();
         }
+
+            private void OnSafeAdd( GameForm form )
+            {
+                try
+                {
+                    //_games[GetNextEmptyGame()] = form.Game;
+                   // _games.Add(form.Game);
+            } catch (NotImplementedException e)
+            {
+                //Rewriting an exception
+                throw new Exception("Not implemented yet");
+            } catch (Exception e)
+                {
+                    //Log a message
+
+                    //Rethrow exception - wrong way
+                    //throw e;
+                    throw;
+                };
+            }
+        
         
         //HACK: Find first spot in array with no games
         private int GetNextEmptyGame()
@@ -129,8 +165,8 @@ namespace GameManager.Host.Winforms
             if (form.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            //TODO: fix to edit, not add
-            UpdateGame(game, form.Game);
+            //UpdateGame(game, form.Game);            
+           // _games.Update(game.Id, form.Game);
             BindList();
         }
 
@@ -154,12 +190,20 @@ namespace GameManager.Host.Winforms
             if (selected == null)
                 return;
 
-            // Dispaly confirmation
-            if(MessageBox.Show($"Are you sure you want to delete {selected.Name}?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes);
-            return;
+            //Display confirmation
+            if (MessageBox.Show(this, $"Are you sure you want to delete {selected.Name}?",
+                               "Confirm Delete", MessageBoxButtons.YesNo,
+                               MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
 
-            //TODO: Delete
-            DeleteGame(selected);
+            try
+            {
+                //DeleteGame(selected);
+               // _games.Delete(selected.Id);
+            } catch (Exception)
+            {
+
+            };
             BindList();
 
         }
@@ -332,4 +376,12 @@ namespace GameManager.Host.Winforms
  *  Validating must have focus
  *  Cannot lose focus = Enable allow focus change
  * validate children method for validate all the children of the form 
+ */
+
+/* March 6, 2018 - Exceptions & try catch, Error Handling (I was sleepy)
+ * type message -> string
+ * argument exception -- argumentNull exception, argumentOorException, invalidOperator exception
+ * you will not throw these exceptions, because sometimes there will be errors(system exception)nullReference exception, invalidCast exception
+ * catch block catch any exception
+ * 
  */
