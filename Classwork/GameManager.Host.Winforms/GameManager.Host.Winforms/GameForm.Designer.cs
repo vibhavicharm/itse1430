@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.Description = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this._txtName = new System.Windows.Forms.TextBox();
             this._txtPublisher = new System.Windows.Forms.TextBox();
@@ -52,14 +52,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "&Name";
             // 
-            // label2
+            // Description
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 50);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "&Description";
+            this.Description.AutoSize = true;
+            this.Description.Location = new System.Drawing.Point(19, 50);
+            this.Description.Name = "Description";
+            this.Description.Size = new System.Drawing.Size(60, 13);
+            this.Description.TabIndex = 1;
+            this.Description.Text = "&Description";
             // 
             // label3
             // 
@@ -166,7 +166,7 @@
             this.Controls.Add(this._txtPublisher);
             this.Controls.Add(this._txtName);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.Description);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -185,7 +185,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label Description;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox _txtName;
         private System.Windows.Forms.TextBox _txtPublisher;
