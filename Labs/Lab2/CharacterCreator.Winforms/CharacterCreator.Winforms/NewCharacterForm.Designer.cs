@@ -47,6 +47,8 @@
             this.onNewCharaAgilityUpDown = new System.Windows.Forms.NumericUpDown();
             this.onNewCharaConstitutionUpDown = new System.Windows.Forms.NumericUpDown();
             this.onNewCharaCharismaUpDown = new System.Windows.Forms.NumericUpDown();
+            this.onNewCharaSave = new System.Windows.Forms.Button();
+            this.onNewCharaCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.onNewCharaStrengthUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.onNewCharaIntelligenceUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.onNewCharaAgilityUpDown)).BeginInit();
@@ -103,6 +105,7 @@
             // 
             // onNewCharaProfessionComboBox
             // 
+            this.onNewCharaProfessionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.onNewCharaProfessionComboBox.FormattingEnabled = true;
             this.onNewCharaProfessionComboBox.Items.AddRange(new object[] {
             "Fighter",
@@ -114,9 +117,11 @@
             this.onNewCharaProfessionComboBox.Name = "onNewCharaProfessionComboBox";
             this.onNewCharaProfessionComboBox.Size = new System.Drawing.Size(121, 24);
             this.onNewCharaProfessionComboBox.TabIndex = 11;
+            this.onNewCharaProfessionComboBox.SelectedIndexChanged += new System.EventHandler(this.onNewCharaProfessionComboBox_SelectedIndexChanged);
             // 
             // onNewCharaRaceComboBox
             // 
+            this.onNewCharaRaceComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.onNewCharaRaceComboBox.FormattingEnabled = true;
             this.onNewCharaRaceComboBox.Items.AddRange(new object[] {
             "Dwarf",
@@ -135,6 +140,8 @@
             this.onNewCharaNameTextBox.Name = "onNewCharaNameTextBox";
             this.onNewCharaNameTextBox.Size = new System.Drawing.Size(121, 22);
             this.onNewCharaNameTextBox.TabIndex = 10;
+            this.onNewCharaNameTextBox.TextChanged += new System.EventHandler(this.onNewCharaNameTextBox_TextChanged);
+            this.onNewCharaNameTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateName);
             // 
             // onNewCharaDescriptionTextBox
             // 
@@ -275,11 +282,33 @@
             0,
             0});
             // 
+            // onNewCharaSave
+            // 
+            this.onNewCharaSave.Location = new System.Drawing.Point(75, 465);
+            this.onNewCharaSave.Name = "onNewCharaSave";
+            this.onNewCharaSave.Size = new System.Drawing.Size(80, 32);
+            this.onNewCharaSave.TabIndex = 19;
+            this.onNewCharaSave.Text = "&Save";
+            this.onNewCharaSave.UseVisualStyleBackColor = true;
+            this.onNewCharaSave.Click += new System.EventHandler(this.onNewCharaSave_Click);
+            // 
+            // onNewCharaCancel
+            // 
+            this.onNewCharaCancel.Location = new System.Drawing.Point(219, 465);
+            this.onNewCharaCancel.Name = "onNewCharaCancel";
+            this.onNewCharaCancel.Size = new System.Drawing.Size(83, 32);
+            this.onNewCharaCancel.TabIndex = 20;
+            this.onNewCharaCancel.Text = "&Cancel";
+            this.onNewCharaCancel.UseVisualStyleBackColor = true;
+            this.onNewCharaCancel.Click += new System.EventHandler(this.onNewCharaCancel_Click);
+            // 
             // NewCharacterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(371, 518);
+            this.Controls.Add(this.onNewCharaCancel);
+            this.Controls.Add(this.onNewCharaSave);
             this.Controls.Add(this.onNewCharaNameTextBox);
             this.Controls.Add(this.onNewCharaCharismaUpDown);
             this.Controls.Add(this.onNewCharaConstitutionUpDown);
@@ -338,5 +367,7 @@
         private System.Windows.Forms.NumericUpDown onNewCharaAgilityUpDown;
         private System.Windows.Forms.NumericUpDown onNewCharaConstitutionUpDown;
         private System.Windows.Forms.NumericUpDown onNewCharaCharismaUpDown;
+        private System.Windows.Forms.Button onNewCharaSave;
+        private System.Windows.Forms.Button onNewCharaCancel;
     }
 }
