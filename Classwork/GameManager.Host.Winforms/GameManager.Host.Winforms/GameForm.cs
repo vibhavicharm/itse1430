@@ -21,24 +21,31 @@ namespace GameManager.Host.Winforms
 
         private void OnSave( object sender, EventArgs e )
         {
-            var game = SaveData();
-
-            // validate children
             if (!ValidateChildren())
                 return;
 
-            //Validate at business level
-            if (!game.Validate())
+            var game = SaveData();
+
+            //Validate at business level using IValidatableObject
+            try
             {
-                MessageBox.Show("Game not valid.", "Error", MessageBoxButtons.OK);
+                //new ObjectValidator().Validate(game);
+                ObjectValidator.Validate(game);
+            } catch (ValidationException)
+            {
+                MessageBox.Show(this, "Game not valid.", "Error", MessageBoxButtons.OK);
                 return;
-            }
+            };
+            //if (!game.Validate())
+            //{
+            //    MessageBox.Show(this, "Game not valid.", "Error", MessageBoxButtons.OK);
+            //    return;
+            //};
 
             Game = game;
-            DialogResult = DialogResult.OK; // DialogResult is an enum. syntax for enum is "enum = enum.type"
-
+            DialogResult = DialogResult.OK;
             Close();
-            
+
         }
 
         private void OnCancel( object sender, EventArgs e )
