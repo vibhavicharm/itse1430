@@ -40,8 +40,10 @@ namespace GameManager
         protected override IEnumerable<Game> GetAllCore()
         {
             //Use iterator
-            foreach (var item in _items)
-                yield return Clone(item);
+            //foreach (var item in _items)
+            //    yield return Clone(item);
+
+            return _items.Select(Clone);
         }
 
         protected override Game UpdateCore( int id, Game game )
@@ -75,11 +77,33 @@ namespace GameManager
 
         private int GetIndex( int id )
         {
-            for (var index = 0; index < _items.Count; ++index)
-                if (_items[index]?.Id == id)
-                    return index;
+            //Can use lambda anywhere you need a function object, must be explicit on type
+            //Func<Game, bool> isId = (g) => g.Id == id;
+
+            //for (var index = 0; index < _items.Count; ++index)
+            //    if (_items[index]?.Id == id)
+            //        return index;
+
+            //In here we replaced our for loop with Ienurable<T>
+            //_items = all games
+            // .Where = filters down to only those matching IsId
+            // .FirstOrDefault = returns first of filtered items, if any
+            var game = _items.Where(g => g.Id == id).FirstOrDefault(); //Lambda expression is litt;e bit different than nomal function though
+            
+            // Demoing anonymous type
+            //var games = from g in _items
+            //            where g.Id == id
+            //            select new { Id = g.Id, Name = g.Name };
+            //var game = games.FirstOrDefault();
+            if (game != null)
+                return _items.IndexOf(game);
 
             return -1;
+        }
+
+        private bool IsId(Game game )
+        {
+            return game.Id == id;
         }
 
         //Arrays are so 90s
@@ -94,7 +118,7 @@ namespace GameManager
     }
 }
 
-/* March 17, 2019 - instance members and static memebers
+/* March 27, 2019 - instance members and static memebers
  * Abstract base class(ABC);
  *  -add or virtual members
  *  -you can change existing members
@@ -133,9 +157,28 @@ namespace GameManager
  * First() - do not use these . instead use - FirstOrDefault() -> T
  * Last() - do not use these . instead use - LastOrDefault() -> T
  * single() - do not use these . instead use - SingleOrDefault() -> T
+ * any() reyurns a bool - this determine if it is empty. Count()
+ * ToArray() take you IEnum<T> and return back T[]
  * Skip(int) -> IEnum<T>
  * Take(int) -> IEnum<T>
  * where() -> IEnum<T>
  * all of these are extension methods( IEnunerable extensions)
  * IEnunerable<T> will never return null. they return an empty object if they do not have anything
+ */
+
+/* April 1, 2019 - LINQ, Lambda
+ * Lambda is a function expression
+ * Lambda is indicated using "=>"
+ * Parameters on the left if any and the expressions on the right. means they only work with functions
+ * Lambdas are the only things we always use single letters for parametrs (like g)
+ * If you do not crae about lamda parameter you can use just "_". it says you do not care about the parameter 
+ * or you can also use no parameters for lamdas as well
+ * if you need more than one statement you can use {} and you can put any statements there then u must use ; too.
+ * 
+ * closures
+ * expresson bodies
+ * 
+ * LINQ
+ * anonymous types. we do not know what type is but compile knows. it show with "`a"
+ * anonymous type really design fpr LINQs(or links) but you can use anywhere you want.
  */

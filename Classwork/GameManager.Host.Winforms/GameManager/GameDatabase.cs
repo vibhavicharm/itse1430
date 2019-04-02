@@ -84,13 +84,29 @@ namespace GameManager
 
         protected virtual Game FindByName( string name )
         {
-            foreach (var game in GetAllCore())
-            {
-                if (String.Compare(game.Name, name, true) == 0)
-                    return game;
-            };
+            //select
+            //from
+            //where
+            // => IEnumeravle<T>
+            return (from game in GetAllCore() // this is first type
+                    where String.Compare(game.Name, name, true) == 0
+                    //orderby game.Name, game.Id descending
+                    select game).FirstOrDefault();
+            // extension method equivalent
+            //return GetAllCore().Where(game => String.Compare(game.Name, name, true) == 0) //this is second type
+            //            .Select(game => game)
+            //            .FirstOrDefault();
 
-            return null;
+
+            //all of this in above will equivilant to all which is below
+
+            //foreach (var game in GetAllCore())
+            //{
+            //    if (String.Compare(game.Name, name, true) == 0)
+            //        return game;
+            //};
+
+            //return null;
         }
 
         protected abstract Game GetCore( int id );

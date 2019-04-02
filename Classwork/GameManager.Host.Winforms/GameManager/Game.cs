@@ -33,8 +33,11 @@ namespace GameManager
 
         /// <summary> Name of the game </summary>
         public string Name {
-            get { return _name ?? ""; } // keywords inside the property declaration. must return the value you get. (read)
-            set { _name = value; } // write
+            //Expression bodied members. they are lambdas
+            //get { return _name ?? ""; } // keywords inside the property declaration. must return the value you get. (read)
+            get => _name ?? "";
+            //set { _name = value; } // write
+            set => _name = value ?? "";
         }
         // name guranteed never to be null
 
@@ -42,17 +45,26 @@ namespace GameManager
 
 
 
-        public string Discription {
+        public string Description
+        {
+            get => _description ?? "";
+            set => _description = value;
+        }
+
+        public string Publisher { 
             get { return _publisher ?? ""; } // they would not return null
             set { _publisher = value; }
         }
 
 
         // Calculated property
-        public bool IsCoolGame {
-            get { return _publisher != "EA"; } // properties can be calulated properties
-        }
+        //public bool IsCoolGame {
+        //    get { return _publisher != "EA"; } // properties can be calulated properties
+        //}
+        public bool IsCoolGame => Price < 59.99M;
 
+        //private bool IsCoolGame2 = true;
+        public override string ToString() => Name;// you can use a method body for a expression as well
         private string _publisher = ""; // properties do not have data
 
         public decimal Price
