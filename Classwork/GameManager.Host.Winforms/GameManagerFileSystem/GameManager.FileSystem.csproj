@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameManager.Host.Winforms\GameManager.Host.Winforms.csproj" />
+    <ProjectReference Include="..\GameManager\GameManager.csproj" />
+  </ItemGroup>
+
+</Project>

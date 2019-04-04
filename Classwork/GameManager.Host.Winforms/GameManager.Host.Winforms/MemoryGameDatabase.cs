@@ -181,4 +181,25 @@ namespace GameManager
  * LINQ
  * anonymous types. we do not know what type is but compile knows. it show with "`a"
  * anonymous type really design fpr LINQs(or links) but you can use anywhere you want.
+ *
+ * Example for extension method;
+ * Given products(IEnumerable<Product>)
+ * Get all where Price > 1000
+ *  var items = products.where(x=> x.Price>1000);
+ * Order by Name and Price
+ *  items = items.OrderBy(x=>x.Name);
+ *  items.ThenBy(x=>x.Price); //if you have more than one orderby s you can use "ThenBy". first one must be OrderBy then after that everything is ThenBy
+ * only Get Id, Name and Price
+ *  var finalItems = items.select(x=>new{Id=x.Id,Name=x.Name,Price=x.Price}) //{} because it is an annonymous type
+ * 
+ * Example for LINQ method;
+ * Given products(IEnumerable<Product>)
+ * Get all where Price > 1000
+ *  var items = from x in products where x.Price>1000;
+ * Order by Name and Price
+ *  items = from x in items OrderBy x.Name, x.Price;
+ * Get Id, Name and Price
+ *  var finalItems = from x in items select new{Id=x.Id,Name=x.Name,Price=x.Price};
+ * 
  */
+

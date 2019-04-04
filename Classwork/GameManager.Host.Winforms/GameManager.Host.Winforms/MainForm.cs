@@ -182,6 +182,7 @@ namespace GameManager.Host.Winforms
             };
         }
 
+        private IGameDatabase _games = new FileGameDatabase("games.dat");
 
         private void OnGameDelete( object sender, EventArgs e )
         {
