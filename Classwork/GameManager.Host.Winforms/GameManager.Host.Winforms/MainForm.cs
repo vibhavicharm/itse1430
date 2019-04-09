@@ -56,6 +56,23 @@ namespace GameManager.Host.Winforms
             //_miGameAdd.Click += OnGameAdd; //(same thing) _miGameAdd.Click += new EventHandler(OnGameAdd);
         }
 
+        protected override void OnLoad( EventArgs e )
+        {
+            base.OnLoad(e);
+
+            // Load connection string from config
+            var connString = ConfigurationManager.connectionString["database"];
+            _games = new SqlGameDatabase();
+
+            //Seed if database is empty
+            var games = _games.GetAll();
+            if (games.Count() == 0)
+                //SeedDatabase.Seed(_games);
+                _games.Seed();
+
+            BindList();
+        }
+
         private void OnFileExit( object sender, EventArgs e )
         {
             // Local variable
@@ -182,7 +199,7 @@ namespace GameManager.Host.Winforms
             };
         }
 
-        private IGameDatabase _games = new FileGameDatabase("games.dat");
+        private IGameDatabase _games;
 
         private void OnGameDelete( object sender, EventArgs e )
         {
@@ -266,6 +283,21 @@ namespace GameManager.Host.Winforms
         {
 
         }
+
+        private interface IGameDatabase
+        {
+        }
+
+        private class SqlGameDatabase
+        {
+            public SqlGameDatabase()
+            {
+            }
+        }
+    }
+
+    internal class ConfigurationManager
+    {
     }
 }
 

@@ -157,10 +157,34 @@ namespace GameManagerFileSystem
  *                            - WriteAllBytes(str,Bytes[])
  * if you want to open a file - Open(str,...)->stream
  *                            - OpenText(str)-> streamReader
+ * stream is series of byte( stream of byte)
+ * stream and streamReader are work with text file
  * streams are VERY VERY LOW LEVEL objects so they are very easy to mess them up
  * streams - File - stream reader/writer, network - binary stream reader/writer, IPC, Memory
  * streams has to be close when you are done with i. there is .Close() method
  * 
  * using statement requires an expression; using(expr){statements;} =(equivilant to) try{}finally{Close()}
  * using statement is designed for cleanup
+ */
+
+/*April 8, 2019 - IDisposable, ADO.NET, Connection, Command
+ * IDisposable interface only one method has void Dispose();
+ * this does not have close() method
+ * reader.Close() - NEVER DO THIS
+ * close() method is simply this - close(){Dispose()}. so you do not need to use Close() method in dispose();
+ * if you do not know this, do not use. because it easily can get trouble
+ * 
+ *DataBase
+ * Table - columns represent what and rows represent data
+ *  in .NET world table is like Type, columns is like porperties, rows is like instances
+ * Products - Id - int, Name - text, Price - money
+ *  in .NET Product - Id, Name, Price
+ * ADO.NET stands for Active Data Objects .NET
+ * 
+ * SQL deploy when F5 clicks output gets a one successful 
+ * DB connection is a generic connection and it is sql connection and it is IDisposable
+ * DB command is another sqlCommand and it is also IDisposable
+ * To execute command. there are several methods - Execunuqueery() - this is does not care about the result
+ * and executeScaler() execute and return back one value
+ * 
  */
