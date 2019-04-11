@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -31,21 +32,23 @@ namespace GameManager.sql
                 //var cmd = new SqlCommand("", connection); //same thing does as above two lines
 
 
-                // Add parameter 1
+                // Add parameter 1 - long way when you need control over parameter
                 var parameter = new SqlParameter("@name", System.Data.SqlDbType.NVarChar);
                 parameter.Value = game.Name;
                 cmd.Parameters.Add(parameter);
 
-                // Add parameter 2
+                // Add parameter 2 - quick way when you just need type/value
                 cmd.Parameters.AddWithValue("@description", game.Description);
                 cmd.Parameters.AddWithValue("@price", game.Price);
                 cmd.Parameters.AddWithValue("@completed", game.Completed);
                 cmd.Parameters.AddWithValue("@owned", game.Owned);
 
-                // To execute command. there are several methods
-                var result = (int)cmd.ExecuteScalar();
+                //To execute
+                // (int)cmd.ExecuteScalar();
+                // cmd.ExecuteScalar() as int;  //reference types 
+                var result = Convert.ToInt32(cmd.ExecuteScalar());
 
-                game.Id = result;
+                game.id = result;
                 return game;
             };
 
@@ -55,29 +58,110 @@ namespace GameManager.sql
 
         private object GetConnection()
         {
-            throw new NotImplementedException();
+            return new NotImplementedException();
         }
 
         protected override void DeleteCore( int id )
         {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+
+                var cmd = connection.CreateCommand();
+                cmd.CommandText = "AddGame";
+                //add something here
+                //var cmd = new SqlCommand("", connection); //same thing does as above two lines
+
+
+                
+                cmd.Parameters.AddWithValue("@id", id);
+
+                //No result
+                cmd.ExecuteNonQuery();
+            };
+
+
             throw new NotImplementedException();
         }
 
         protected override IEnumerable<Game> GetAllCore()
         {
-            //throw new NotImplementedException();
+            var ds = new DataSet();
+
+            using (var conn = GetConnection())
+            {
+                var cmd = new SqlCommand("GetGames", conn);
+                cmd.CommandTupe = System.Data.CommandType.StoredProcedure;
+
+                
+                var da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                //DataColumn.SelectCommand = cmd;
+                //DataColumn.Fill(ds);
+                da.Fill(ds);
+
+                //If you want to update
+                //da.Update(ds);
+            };
+            //Disconnected from DB
+            //ds.Tables[0].Rows[0][0] = "Old";
+            //ds.Tables[0].Rows[0]["Name"] = "Old";
+
+            var table = ds.Tables.OfType<DataTable>().FirstOrDefault();
+            if(table != null)
+            {
+                return from r in table.Rows.OfType<DataRow>()
+                       select new Game() {
+                           Id = Convert.ToInt32(r[0]), // Ordinal, convert - first option is using index. but zero based index is not a good thing
+                           Name = r["Name"].ToString(), // By name, convert - second approach - we can go with the names of the columns
+                           Description = r.IsNull("description") ? "": r["description"].ToString(), // handle DB nulls - this is not .NET null.
+                           Price = r.Field<decimal>("Price"), //this does exact same thing as Id row
+                           Owned = r.Field<bool>("Owned"), //boolian 
+                           Completed = r.Field<bool>("Completed"),
+                       };
+            };
+
             return Enumerable.Empty<Game>();
         }
 
         protected override Game GetCore( int id )
         {
-            //throw new NotImplementedException();
-            return null;
+            // HACK: Doing it wrong way
+            return GetAllCore().FirstOrDefault(g => g.Id == id);
         }
 
-        protected override Game UpdateCore( int id, Game newGame )
+        protected override Game UpdateCore( int id, Game game )
         {
-            throw new NotImplementedException();
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+
+                var cmd = connection.CreateCommand();
+                cmd.CommandText = "UpdateGame";
+                //add something here
+                //var cmd = new SqlCommand("", connection); //same thing does as above two lines
+
+
+                // Add parameter 1 - long way when you need control over parameter
+                var parameter = new SqlParameter("@name", System.Data.SqlDbType.NVarChar);
+                parameter.Value = game.Name;
+                cmd.Parameters.Add(parameter);
+
+                // Add parameter 2 - quick way when you just need type/value
+                cmd.Parameters.AddWithValue("@description", game.Description);
+                cmd.Parameters.AddWithValue("@price", game.Price);
+                cmd.Parameters.AddWithValue("@completed", game.Completed);
+                cmd.Parameters.AddWithValue("@owned", game.Owned);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                //No result
+                cmd.ExecuteNonQuery();
+            };
+
+
+            return game;
         }
 
         private class SqlConnection
@@ -95,6 +179,7 @@ namespace GameManager.sql
 
     internal class SqlCommand
     {
+        internal CommandType CommandTupe;
         private string v;
         private object connection;
 
@@ -103,5 +188,38 @@ namespace GameManager.sql
             this.v = v;
             this.connection = connection;
         }
+
+        public static implicit operator System.Data.SqlClient.SqlCommand( SqlCommand v )
+        {
+            throw new NotImplementedException();
+        }
     }
 }
+
+/* April 10, 2019 - Dataset
+ * Dataset - you can load data in to dataset and work with it
+ * Table -> Data Table[] - Columns[]<- DataColumn <- Name Type
+ *                       - Rows[] <- DataRow
+ * So, column in your table will be the id, name and description
+ * DataRow is an object[]
+ * get the name from the row you will go to the second column
+ * if you mouse over the ds then click the magnifying glass then the table will be shown with data on it.
+ * order is not quiry.
+ * columns have name.. rows do not. rows go numbers(iThink)
+ * data adapters can read any data from the program. dataSets are design for search and get the results. you can get anything from datasets. datasets are selfaware.
+ * you can get whatever you want from data set. like type of the data value of data etc.
+ * 
+ * 6 steps - 1) Create the dataSet
+ * 2) Create adapter
+ * 3) Set command
+ * 4)Fill
+ * 5) Get Table
+ * 6) <- rows
+ * 
+ * if there is a problem go to the solution explorer -> store Procedures then type "SET NOCOUNT ON;" if this is not already there. then add your Id on SELECT row 
+ * 
+ * 
+ * data bease van vhanege two deferent thongs . any thing you delete it is delete..a ny row you change it will go to the update
+ * any row you add ait will goto the insertrow
+ * 
+ */

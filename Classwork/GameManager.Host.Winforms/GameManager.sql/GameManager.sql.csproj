@@ -45,10 +45,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameDB\GameDB.sqlproj">
-      <Project>{e0b40936-ddcf-4e6d-98c5-4e3c2a693656}</Project>
-      <Name>GameDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GameManager\GameManager.csproj">
       <Project>{ebc2a179-0a88-48a7-8956-0e2360f2d06a}</Project>
       <Name>GameManager</Name>

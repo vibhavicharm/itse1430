@@ -187,4 +187,17 @@ namespace GameManagerFileSystem
  * To execute command. there are several methods - Execunuqueery() - this is does not care about the result
  * and executeScaler() execute and return back one value
  * 
+ * 
+ * Example;
+ * Create a cannection to "MyDB"
+ *  var cs = ConfigurationManager.Conn str["MyDB"];
+ *  using  var conn = new SqlConnection(cs.ConnectionString);
+ *  
+ * Create a cmd(command) to call proc "GetEmployee"
+ *  var cmd = conn.CreateCommand();
+ *  cmd.CommandText = "GetEmployee";
+ *  cmd.CommandType = CommandType.StoredProcedur;
+ *  
+ * Add param Id with value 10
+ *  cmd.Parameters.AddWithValue("@id",10);
  */
