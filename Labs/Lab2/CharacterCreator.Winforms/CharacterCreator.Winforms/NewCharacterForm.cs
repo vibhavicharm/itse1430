@@ -39,16 +39,22 @@ namespace CharacterCreator.Winforms
 
         private void onNewCharaSave_Click( object sender, EventArgs e )
         {
-            if (ValidateChildren())
+            if (!ValidateChildren())
             {
-                var character = onNewCharaSave;
+                var character = SaveData();
 
-                MessageBox.Show(this, "Game not valid.", "Error", MessageBoxButtons.OK);
+                MessageBox.Show(this, "Character is not valid.", "Error", MessageBoxButtons.OK);
                 return;
             };
         }
 
-        
+        private NewCharacterForm SaveData()
+        {
+            var newCharacter = new NewCharacterForm();
+            onNewCharaNameTextBox.Text = newCharacter.Text;
+
+            return newCharacter;
+        }
 
         private void onNewCharaProfessionComboBox_SelectedIndexChanged( object sender, EventArgs e )
         {
@@ -93,6 +99,11 @@ namespace CharacterCreator.Winforms
             {
                 //_errors.SetError(tb, "");
             }
+        }
+
+        private void OnValidateProfession( object sender, System.ComponentModel.CancelEventArgs e )
+        {
+
         }
     }
 }
