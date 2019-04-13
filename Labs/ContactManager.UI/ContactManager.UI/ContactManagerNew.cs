@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Vibhavi Jayasinghe
+ * Lab 3
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -68,7 +72,7 @@ namespace ContactManager.UI
                     break;
                 } catch (InvalidOperationException)
                 {
-                    MessageBox.Show(this, "Choose a better game.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, "Choose a correct contact.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 } catch (Exception ex)
                 {
                     //Recover from errors
@@ -107,9 +111,9 @@ namespace ContactManager.UI
             _listContacts.Items.Clear();
             _listContacts.DisplayMember = nameof(Contact.Name);
 
-            var items = _contacts.GetAll();
-            items = items.OrderBy(GetName);
-            _listContacts.Items.AddRange(items.ToArray());
+            //var items = contactList.GetAll();
+            //items = items.OrderBy(GetName);
+            //_listContacts.Items.AddRange(items.ToArray());
 
         }
 
@@ -119,7 +123,7 @@ namespace ContactManager.UI
         }
 
         private IContactDatabaseNew _contacts;
-        private Exception ex;
+        private object contactList;
 
         private void _listContacts_SelectedIndexChanged( object sender, EventArgs e )
         {
@@ -149,7 +153,7 @@ namespace ContactManager.UI
             {
                 //DeleteGame(selected);
                 _contacts.Delete(selected.Name);
-            } catch (Exception)
+            } catch (Exception ex)
             {
                 DisplayError(ex);
             };

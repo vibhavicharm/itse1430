@@ -21,7 +21,7 @@ namespace ContactManager.UI
             // if (existing != null)
             //     throw new Exception("Contact must be unique");
 
-            return AddCore(contact);
+            return Add(contact);
         }
 
         Contact Update( string name, Contact contact )
@@ -34,7 +34,7 @@ namespace ContactManager.UI
 
             //ObjectValidator.Validate(contact);
 
-            var existing = GetCore(name);
+            var existing = Get(name);
             if (existing == null)
                 throw new Exception("Contact does not exist.");
 
@@ -43,7 +43,7 @@ namespace ContactManager.UI
             //if (sameName != null && sameName.Name != name)
             //    throw new Exception("Contact must be unique.");
 
-            return UpdateCore(name, contact);
+            return Update(name, contact);
         }
 
         void Delete( string name )
@@ -51,7 +51,7 @@ namespace ContactManager.UI
             if (name.Length <= 0)
                 throw new ArgumentOutOfRangeException(nameof(name), "Name is required.");
 
-            DeleteCore(name);
+            Delete(name);
         }
 
         Contact Get( string name )
@@ -59,12 +59,20 @@ namespace ContactManager.UI
             if (name.Length <= 0)
                 throw new ArgumentOutOfRangeException(nameof(name), "Name is required.");
 
-            return GetCore(name);
+            return Get(name);
         }
 
         IEnumerable<Contact> GetAll()
         {
-            return GetAllCore();
+            return contactList;
+        }
+
+        private List<Contact> contactList;
+
+        public IEnumerable<Contact> ContactList
+        {
+            get { return contactList; }
+            set { contactList = value.ToList(); }
         }
 
         //protected virtual Contact FindByName( string name )
@@ -77,16 +85,9 @@ namespace ContactManager.UI
 
 
 
-        protected abstract Contact GetCore( string name );
-
-        protected abstract Contact AddCore( Contact contact );
-
-        protected abstract Contact UpdateCore( string name, Contact newContact );
-
-        protected abstract void DeleteCore( string name );
-
-        protected abstract IEnumerable<Contact> GetAllCore();
-
+       
+        
+        
         Contact IContactDatabaseNew.Add( Contact contact )
         {
             throw new NotImplementedException();
@@ -99,6 +100,7 @@ namespace ContactManager.UI
 
         IEnumerable<Contact> IContactDatabaseNew.GetAll()
         {
+            
             throw new NotImplementedException();
         }
 

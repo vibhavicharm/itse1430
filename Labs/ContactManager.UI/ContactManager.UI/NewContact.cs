@@ -11,6 +11,8 @@ namespace ContactManager.UI
         }
 
         public Contact contact { get; set; }
+
+
         public object Contact { get; private set; }
 
         private void nameTextNewContact_TextChanged( object sender, EventArgs e )
@@ -46,7 +48,7 @@ namespace ContactManager.UI
             return;
 
 
-            Contact = contact;
+            
             DialogResult = DialogResult.OK;
             Close();
         }

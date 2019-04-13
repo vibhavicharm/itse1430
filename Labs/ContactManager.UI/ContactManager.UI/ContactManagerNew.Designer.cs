@@ -118,7 +118,7 @@
             this._listContacts.BackColor = System.Drawing.SystemColors.MenuBar;
             this._listContacts.FormattingEnabled = true;
             this._listContacts.ItemHeight = 16;
-            this._listContacts.Location = new System.Drawing.Point(1, 31);
+            this._listContacts.Location = new System.Drawing.Point(0, 31);
             this._listContacts.Name = "_listContacts";
             this._listContacts.Size = new System.Drawing.Size(481, 324);
             this._listContacts.TabIndex = 3;
