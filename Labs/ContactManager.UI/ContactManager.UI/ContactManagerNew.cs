@@ -119,6 +119,7 @@ namespace ContactManager.UI
         }
 
         private IContactDatabaseNew _contacts;
+        private Exception ex;
 
         private void _listContacts_SelectedIndexChanged( object sender, EventArgs e )
         {
@@ -129,6 +130,79 @@ namespace ContactManager.UI
         {
             var form = new sendMessageForm();
             form.Show();
+        }
+
+        private void menuContactDelete_Click( object sender, EventArgs e )
+        {
+            // Get selected game, if any
+            var selected = GetSelectedContact();
+            if (selected == null)
+                return;
+
+            //Display confirmation
+            if (MessageBox.Show(this, $"Are you sure you want to delete {selected.Name}?",
+                               "Confirm Delete", MessageBoxButtons.YesNo,
+                               MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+
+            try
+            {
+                //DeleteGame(selected);
+                _contacts.Delete(selected.Name);
+            } catch (Exception)
+            {
+                DisplayError(ex);
+            };
+            BindList();
+
+        }
+
+        private void DisplayError( object ex )
+        {
+            throw new NotImplementedException();
+        }
+
+        private Contact GetSelectedContact()
+        {
+            var value = _listContacts.SelectedItem;
+
+            //Preferred - null if not valid
+            var game = value as Contact;
+
+            //Type check
+            var game2 = (value is Contact) ? (Contact)value : null;
+
+            return _listContacts.SelectedItem as Contact;
+        }
+
+        private void menuContactEdit_Click( object sender, EventArgs e )
+        {
+            var form = new NewContact();
+
+            var game = GetSelectedContact();
+            if (game == null)
+                return;
+
+            //Game to edit
+            //form.Contact = Contact;
+
+            while (true)
+            {
+                if (form.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                try
+                {
+                    //UpdateGame(game, form.Game);            
+                    _contacts.Update(game.Name, form.Contact);
+                    break;
+                } catch (Exception ex)
+                {
+                    DisplayError(ex);
+                };
+            };
+
+            BindList();
         }
     }
 }

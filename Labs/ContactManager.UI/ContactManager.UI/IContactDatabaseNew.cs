@@ -14,6 +14,8 @@ namespace ContactManager.UI
         void Remove( string name );
         Contact Update( string name, Contact contact );
         void Add( object contact );
+        void Delete( string name );
+        void Update( string name, object contact );
     } 
 
     public class Contact

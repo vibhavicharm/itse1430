@@ -110,5 +110,15 @@ namespace ContactManager.UI
         }
 
         public abstract void Add( object contact );
+
+        void IContactDatabaseNew.Delete( string name )
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update( string name, object contact )
+        {
+            throw new NotImplementedException();
+        }
     }
 }

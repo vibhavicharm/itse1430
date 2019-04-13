@@ -44,5 +44,16 @@ namespace ContactManager.UI
 
             return contact;
         }
+
+        private void sendMessageTextSubject_TextChanged( object sender, EventArgs e )
+        {
+            if (string.IsNullOrEmpty(sendMessageTextSubject.Text))
+            {
+                errorProvider1.SetError(sendMessageTextSubject, "Name is required");
+            } else
+            {
+                errorProvider1.SetError(sendMessageTextSubject, null);
+            }
+        }
     }
 }

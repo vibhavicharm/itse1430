@@ -39,6 +39,8 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this._listContacts = new System.Windows.Forms.ListBox();
             this.sendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuContactDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuContactEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -92,7 +94,9 @@
             // 
             this.menuContact.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuContactAdd,
-            this.sendToolStripMenuItem});
+            this.sendToolStripMenuItem,
+            this.menuContactEdit,
+            this.menuContactDelete});
             this.menuContact.Name = "menuContact";
             this.menuContact.Size = new System.Drawing.Size(72, 24);
             this.menuContact.Text = "Contact";
@@ -111,6 +115,7 @@
             // 
             // _listContacts
             // 
+            this._listContacts.BackColor = System.Drawing.SystemColors.MenuBar;
             this._listContacts.FormattingEnabled = true;
             this._listContacts.ItemHeight = 16;
             this._listContacts.Location = new System.Drawing.Point(1, 31);
@@ -126,6 +131,22 @@
             this.sendToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.sendToolStripMenuItem.Text = "Send";
             this.sendToolStripMenuItem.Click += new System.EventHandler(this.sendToolStripMenuItem_Click);
+            // 
+            // menuContactDelete
+            // 
+            this.menuContactDelete.Name = "menuContactDelete";
+            this.menuContactDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.menuContactDelete.Size = new System.Drawing.Size(216, 26);
+            this.menuContactDelete.Text = "Delete";
+            this.menuContactDelete.Click += new System.EventHandler(this.menuContactDelete_Click);
+            // 
+            // menuContactEdit
+            // 
+            this.menuContactEdit.Name = "menuContactEdit";
+            this.menuContactEdit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.menuContactEdit.Size = new System.Drawing.Size(216, 26);
+            this.menuContactEdit.Text = "Edit";
+            this.menuContactEdit.Click += new System.EventHandler(this.menuContactEdit_Click);
             // 
             // ContactsMainForm
             // 
@@ -163,6 +184,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuContactAdd;
         private System.Windows.Forms.ListBox _listContacts;
         private System.Windows.Forms.ToolStripMenuItem sendToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuContactDelete;
+        private System.Windows.Forms.ToolStripMenuItem menuContactEdit;
     }
 }
 

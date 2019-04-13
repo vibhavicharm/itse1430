@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.sendMessageNameText = new System.Windows.Forms.TextBox();
             this.sendMessageTextSubject = new System.Windows.Forms.TextBox();
             this.sendMessageTextMessage = new System.Windows.Forms.TextBox();
@@ -36,6 +37,8 @@
             this.sendMessageMessage = new System.Windows.Forms.Label();
             this.sendMessageSend = new System.Windows.Forms.Button();
             this.sendMessageCancel = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // sendMessageNameText
@@ -52,6 +55,8 @@
             this.sendMessageTextSubject.Name = "sendMessageTextSubject";
             this.sendMessageTextSubject.Size = new System.Drawing.Size(368, 22);
             this.sendMessageTextSubject.TabIndex = 4;
+            this.sendMessageTextSubject.TextChanged += new System.EventHandler(this.sendMessageTextSubject_TextChanged);
+            this.sendMessageTextSubject.Validated += new System.EventHandler(this.sendMessageTextSubject_TextChanged);
             // 
             // sendMessageTextMessage
             // 
@@ -110,6 +115,10 @@
             this.sendMessageCancel.UseVisualStyleBackColor = true;
             this.sendMessageCancel.Click += new System.EventHandler(this.sendMessageCancel_Click);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // sendMessageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -129,6 +138,7 @@
             this.Name = "sendMessageForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Send a Message";
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -144,5 +154,6 @@
         private System.Windows.Forms.Label sendMessageMessage;
         private System.Windows.Forms.Button sendMessageSend;
         private System.Windows.Forms.Button sendMessageCancel;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
