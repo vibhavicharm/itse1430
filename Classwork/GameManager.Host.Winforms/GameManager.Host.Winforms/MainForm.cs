@@ -65,7 +65,7 @@ namespace GameManager.Host.Winforms
             _games = new SqlGameDatabase();
 
             //Seed if database is empty
-            //var games = _games.GetAll();
+            var games = _games.GetAll();
             //if (games.Count() == 0)
             //    //SeedDatabase.Seed(_games);
             //    _games.Seed();
