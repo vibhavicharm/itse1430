@@ -127,8 +127,43 @@ namespace GameManager.sql
 
         protected override Game GetCore( int id )
         {
-            // HACK: Doing it wrong way
-            return GetAllCore().FirstOrDefault(g => g.Id == id);
+            using (var conn = GetConnection())
+            {
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "GetGames";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+                while(reader.Read())
+                {
+                    var gameId = reader.GetInt32(0); 
+                    if(gameId == id)
+                    {
+                         
+
+                        return new Game() {
+                            Id = gameId,
+                            Name = reader.GetString(reader, "Name"),
+                            Description = reader.GetString(reader, "Description"),
+                            Price = reader.GetFieldValue<decimal>(3),
+                            Owned = Convert.ToBoolean(reader.GetValue(4)),
+                            Completed = Convert.ToBoolean(reader.GetValue(5)),
+                        };
+                    }
+                };
+            };
+            return null;
+        }
+
+        private string GetString( IDataReader reader )
+        {
+            var ordinal = reader.GetOrdinal("Name"); //You can do this if you want.
+
+            if (reader.IsDBNull(ordinal))
+                return "";
+            return reader.GetString(ordinal);
         }
 
         protected override Game UpdateCore( int id, Game game )
@@ -212,14 +247,82 @@ namespace GameManager.sql
  * 6 steps - 1) Create the dataSet
  * 2) Create adapter
  * 3) Set command
- * 4)Fill
+ * 4) Fill
  * 5) Get Table
  * 6) <- rows
  * 
  * if there is a problem go to the solution explorer -> store Procedures then type "SET NOCOUNT ON;" if this is not already there. then add your Id on SELECT row 
  * 
+ * ExecuteNonQuery(cmd) - Update and Delete
+ * ExecuteScalar(cmd) -> object - I
+ */
+
+/* April 15, 2019 - Reading Data 2(not a Dataset)
+ * Reader stream the data from the
+ * reader can read data from the one by one or anyway but you have to write the code
+ * once you move on from the row you cannot go back. it is only forward
+ * if you can get database errore you can add this add ; if (reader.IsDBNull(ordinal))
+                                                            return "";
+ * the errors could be database errors not the .NET errors
+ * data readers vs datasets;
  * 
- * data bease van vhanege two deferent thongs . any thing you delete it is delete..a ny row you change it will go to the update
- * any row you add ait will goto the insertrow
+ * dataSets
+ *  Modifuble
+ *  Multi-table relations
+ *  discoverable
+ *  disconnected
+ *  Slow
+ *  large memory
+ *  100 rows are ok for datasets, but above 100 rows tables are probably not good for datasets
+ *  fixed objects
+ *  readAll the lines 
+ *  
+ * dataReaders
+ *  Read Only
+ *  Row based
+ *  Not discoverable/ only the column name and type of the colum data
+ *  connected
+ *  Fastest
+ *  small memory
+ *  business objects
+ *  you can get "preferred" lines because you load one row at a time. 
+ *  
+ */
+
+/* Review 2
+ * Action<T> = void action(T)
+ * Func<T> = T func()
+ * Func<S,T> = T func(s)
+ * Delegete is s function type
+ * 
+ * What is interface implementation?
+ *  public class Foo: IDisposable{ public void Dispose(){}
+ *     void IDisposable.Ber(){}
+ *  }
+ *  
+ * Creating an instance of a generic type - new List<string>
+ * 
+ * LINQ qurries always returns IEnum<T> except; 
+ *  To - tocovert
+ *  Single
+ *  First
+ *  Last
+ *  
+ * List<T> and Collection<T>
+ *  List <T> always use for fields, and for private side
+ *  public side, returning collection types you use collection<T>
+ * 
+ * from
+ * where
+ * orderby
+ * select
+ * if you are doing extension methods you start with from.
+ * then the rest is you can do whatever way
+ * 
+ * try{threw new IOE();}catch Et
+ * 
+ * ErrorProvider;
+ *  set: SetError(ctrl,msg)
+ *  clear: SetError(ctrl,"")
  * 
  */
