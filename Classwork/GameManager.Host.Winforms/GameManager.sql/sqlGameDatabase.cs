@@ -267,7 +267,7 @@ namespace GameManager.sql
  * data readers vs datasets;
  * 
  * dataSets
- *  Modifuble
+ *  Modifiable
  *  Multi-table relations
  *  discoverable
  *  disconnected
@@ -278,7 +278,7 @@ namespace GameManager.sql
  *  readAll the lines 
  *  
  * dataReaders
- *  Read Only
+ *  Read Only / forward only
  *  Row based
  *  Not discoverable/ only the column name and type of the colum data
  *  connected
@@ -286,7 +286,9 @@ namespace GameManager.sql
  *  small memory
  *  business objects
  *  you can get "preferred" lines because you load one row at a time. 
+ *  more efficients
  *  
+ *  for most senarios you start with data reader
  */
 
 /* Review 2

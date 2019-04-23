@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace GameManager
 {
     /// <summary> Represents a game </summary>
-    public class Game
+    public class Game 
     {
         //Default, no return type 
         //Default constaructor has no parameters
@@ -24,6 +24,7 @@ namespace GameManager
             //Name = name;
         }
 
+        
         //As soon as you define a constructor, no defaulat ctor anymore
         public Game(string name, decimal price )
         {
@@ -31,6 +32,8 @@ namespace GameManager
             Price = price;
         }
 
+       // [RequiredAttributes()]; // you have so many attributes. Required attributes if known as validate attribute
+       // metadatas never carried instances
         /// <summary> Name of the game </summary>
         public string Name {
             //Expression bodied members. they are lambdas
@@ -44,7 +47,7 @@ namespace GameManager
         private string _name = ""; // standard convention for fields(underscore and camalcase)
 
 
-
+        
         public string Description
         {
             get => _description ?? "";
