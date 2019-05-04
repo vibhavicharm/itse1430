@@ -30,10 +30,35 @@ namespace Nile.Stores.Sql
 
                 cmd.Parameters.AddWithValue("@id", id);
 
-
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var gameId = reader.GetInt32(0);
+                    if (gameId == id)
+                    {
+                        return new Product() {
+                            Id = gameId,
+                            Name = GetString(reader, "Name"),
+                            Description = GetString(reader, "Description"),
+                            Price = reader.GetFieldValue<decimal>(3),
+                            IsDiscontinued = Convert.ToBoolean(reader.GetValue(4)),
+                        };
+                    };
+                };
 
             }
             return null;
+        }
+
+        private string GetString( System.Data.IDataReader reader, string name )
+        {
+            var ordinal = reader.GetOrdinal(name);
+
+            if (reader.IsDBNull(ordinal))
+                return "";
+
+            return reader.GetString(ordinal);
         }
 
         protected override IEnumerable<Product> GetAllCore()
@@ -42,7 +67,7 @@ namespace Nile.Stores.Sql
 
             using (var conn = GetConnection())
             {
-                var cmd = new System.Data.SqlClient.SqlCommand("GetGames", conn);
+                var cmd = new System.Data.SqlClient.SqlCommand("GetProducts", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                 var da = new System.Data.SqlClient.SqlDataAdapter();
@@ -52,19 +77,19 @@ namespace Nile.Stores.Sql
 
             };
 
-            //var table = ds.Tables.OfType<System.Data.DataTable>().FirstOrDefault();
-            //if (table != null)
-            //{
-            //    return from r in table.Rows.OfType<System.Data.DataRow>()
-            //           select new Product() {
-            //               Id = Convert.ToInt32(r[0]),  //Ordinal, convert
-            //               Name = r["Name"].ToString(), //By name, convert
-            //               Description = r.IsNull("description") ? "" : r["description"].ToString(), //handle DB nulls
-            //               Price = r.Field<decimal>("Price"),
-            //               IsDiscontinued = r.Field<bool>("Discontinued"),
+            var table = ds.Tables.OfType<System.Data.DataTable>().FirstOrDefault();
+            if (table != null)
+            {
+                return from r in table.Rows.OfType<System.Data.DataRow>()
+                       select new Product() {
+                           Id = Convert.ToInt32(r[0]),  //Ordinal, convert
+                           Name = r["Name"].ToString(), //By name, convert
+                           Description = r.IsNull("description") ? "" : r["description"].ToString(), //handle DB nulls
+                           //Price = r.Field<decimal>("Price"),
+                           //IsDiscontinued = r.Field<bool>("Discontinued"),
 
-            //           };
-            //};
+                       };
+            };
 
             return Enumerable.Empty<Product>();
         }
