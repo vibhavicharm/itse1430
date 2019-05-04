@@ -6,7 +6,11 @@ CREATE PROCEDURE [dbo].[AddProduct]
 AS BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO Products (Name, Price, Description, IsDiscontinued) VALUES (@name, @price, @description, @isDiscontinued)
+    INSERT INTO 
+        Products 
+        (Name, Price, Description, IsDiscontinued) 
+    VALUES 
+        (@name, @price, @description, @isDiscontinued)
 
     SELECT SCOPE_IDENTITY()
 END

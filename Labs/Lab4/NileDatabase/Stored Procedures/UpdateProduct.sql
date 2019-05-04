@@ -13,11 +13,13 @@ AS BEGIN
 		RETURN
 	END
 
-	UPDATE Products
+	UPDATE 
+        Products
 	SET 
 		Name = @name,
 		Description = @description, 
 		Price = @price,
 		IsDiscontinued = @isDiscontinued
-	WHERE Id = @id
+	WHERE 
+        Id = @id
 END

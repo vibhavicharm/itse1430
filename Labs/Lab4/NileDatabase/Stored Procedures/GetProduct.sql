@@ -3,7 +3,14 @@ CREATE PROCEDURE [dbo].[GetProduct]
 AS BEGIN
     SET NOCOUNT ON;
 
-    SELECT Id, Name, Price, Description, IsDiscontinued
-    FROM Products
-    WHERE Id = @id
+    SELECT 
+        Id, 
+        Name, 
+        Price, 
+        Description, 
+        IsDiscontinued
+    FROM 
+        Products
+    WHERE 
+        Id = @id
 END

@@ -3,6 +3,8 @@ CREATE PROCEDURE [dbo].[RemoveProduct]
 AS BEGIN
     SET NOCOUNT ON;
 
-    DELETE FROM Products
-    WHERE Id = @id
+    DELETE FROM 
+        Products
+    WHERE 
+        Id = @id
 END
