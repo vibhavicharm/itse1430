@@ -123,6 +123,7 @@ namespace ContactManager.UI
         }
 
         private IContactDatabaseNew _contacts;
+
         private object contactList;
 
         private void _listContacts_SelectedIndexChanged( object sender, EventArgs e )

@@ -80,7 +80,7 @@
             // saveNewContact
             // 
             this.saveNewContact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.saveNewContact.Location = new System.Drawing.Point(33, 166);
+            this.saveNewContact.Location = new System.Drawing.Point(33, 137);
             this.saveNewContact.Name = "saveNewContact";
             this.saveNewContact.Size = new System.Drawing.Size(166, 32);
             this.saveNewContact.TabIndex = 4;
@@ -91,7 +91,7 @@
             // cancelNewContact
             // 
             this.cancelNewContact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelNewContact.Location = new System.Drawing.Point(246, 166);
+            this.cancelNewContact.Location = new System.Drawing.Point(246, 137);
             this.cancelNewContact.Name = "cancelNewContact";
             this.cancelNewContact.Size = new System.Drawing.Size(206, 32);
             this.cancelNewContact.TabIndex = 5;

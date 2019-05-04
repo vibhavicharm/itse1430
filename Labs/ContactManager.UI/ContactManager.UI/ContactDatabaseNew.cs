@@ -15,13 +15,15 @@ namespace ContactManager.UI
             if (contact == null)
                 throw new ArgumentNullException(nameof(contact));
 
-           // ObjectValidator.Validate(contact);
+            // ObjectValidator.Validate(contact);
 
             //var existing = FindByName(contact.name);
             // if (existing != null)
             //     throw new Exception("Contact must be unique");
 
-            return Add(contact);
+            contactList.Add(contact);
+
+            return contact;
         }
 
         Contact Update( string name, Contact contact )
@@ -83,11 +85,6 @@ namespace ContactManager.UI
 
         //}
 
-
-
-       
-        
-        
         Contact IContactDatabaseNew.Add( Contact contact )
         {
             throw new NotImplementedException();

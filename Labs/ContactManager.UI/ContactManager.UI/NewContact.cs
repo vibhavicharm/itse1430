@@ -46,11 +46,6 @@ namespace ContactManager.UI
 
             MessageBox.Show(this, "Contact not valid.", "Error", MessageBoxButtons.OK);
             return;
-
-
-            
-            DialogResult = DialogResult.OK;
-            Close();
         }
 
         private void cancelNewContact_Click( object sender, EventArgs e )
