@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nile", "Nile\Nile.csproj", 
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NileDatabase", "NileDatabase\NileDatabase.sqlproj", "{56C0ADF1-90E3-4E66-998C-20FE50D88A2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nile.Stores.Sql", "Nile.Stores.Sql\Nile.Stores.Sql.csproj", "{0BEB35B7-C239-4AE9-97E6-F234439C5FB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{56C0ADF1-90E3-4E66-998C-20FE50D88A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56C0ADF1-90E3-4E66-998C-20FE50D88A2D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{56C0ADF1-90E3-4E66-998C-20FE50D88A2D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0BEB35B7-C239-4AE9-97E6-F234439C5FB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BEB35B7-C239-4AE9-97E6-F234439C5FB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BEB35B7-C239-4AE9-97E6-F234439C5FB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BEB35B7-C239-4AE9-97E6-F234439C5FB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
