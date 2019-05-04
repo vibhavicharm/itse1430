@@ -20,6 +20,11 @@ namespace Nile.Stores.Sql
             return new System.Data.SqlClient.SqlConnection(_connectionString);
         }
 
+        public IEnumerable<Product> GetAllProducts()
+        {
+            return GetAllCore();
+        }
+
         protected override Product GetCore( int id )
         {
             using (var conn = GetConnection())

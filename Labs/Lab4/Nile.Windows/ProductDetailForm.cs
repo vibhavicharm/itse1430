@@ -1,4 +1,4 @@
-/*
+/* Vibhavi Jayasinghe
  * ITSE 1430
  */
 using System;
@@ -72,8 +72,10 @@ namespace Nile.Windows
             //TODO: Validate product
             if (Product == null)
                 Product = new Product();
-            
-           
+
+            //TODO:
+            //Stores.Sql.SqlNileStores.GetAllProducts();
+
             Product = product;
             DialogResult = DialogResult.OK;
             Close();
